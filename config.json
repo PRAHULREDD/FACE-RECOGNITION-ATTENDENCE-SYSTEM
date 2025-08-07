@@ -1,0 +1,7 @@
+{
+  "dataset_path": "attendencesystem",
+  "confidence_threshold": 0.85,
+  "attendance_file": "attendence.csv",
+  "model_file": "model.pkl",
+  "min_face_size": 60
+}
