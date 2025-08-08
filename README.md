@@ -1,84 +1,78 @@
-# 🧠 Face Recognition Attendance System
+# Face Recognition Attendance System
 
-This is a Python-based project that **automatically marks attendance using face recognition** through a webcam. It uses AI and computer vision libraries like OpenCV and FaceNet.
+This project is a real-time face recognition attendance system using deep learning and classical machine learning techniques. It detects faces from a webcam feed, recognizes them using FaceNet embeddings and an SVM classifier, and marks attendance after verifying presence for a defined duration.
 
----
+## 🚀 Features
 
-## 🚀 Features (What It Can Do)
-- 👥 **Detects Multiple Faces** at the same time.
-- 🧪 **Checks Model Quality** automatically (overfitting or underfitting).
-- 🧠 **Chooses Best Model Settings** to improve accuracy.
-- 📊 **Live Accuracy Display** on screen.
-- ⚙️ **Easy Configuration** using a JSON file.
+- Real-time face detection and recognition via webcam
+- MTCNN for face detection with small-face enhancement
+- FaceNet (InceptionResnetV1) for 512D embedding generation
+- SVM classifier trained on augmented face embeddings
+- 6+ types of data augmentation for better generalization
+- Box smoothing to reduce flicker and false triggers
+- Attendance marking after stable 3-second detection
+- CSV-based attendance logging with timestamps
+- Cooldown mechanism to avoid duplicate entries
 
----
+## 🧰 Tech Stack
 
-## 🛠️ Setup Instructions (For Beginners)
+- Python
+- OpenCV
+- PyTorch + facenet-pytorch
+- scikit-learn (SVM, LabelEncoder)
+- NumPy
+- MTCNN + InceptionResnetV1
 
-1. 📦 **Install Required Libraries**  
-   In your terminal, type:
-   ```
-   pip install -r requirements.txt
-   ```
+## 📂 Folder Structure
 
-2. 🗂️ **Create a Dataset Folder**  
-   Make a folder named:
-   ```
-   attendencesystem/
-   ```
+```
+attendencesystem/
+├── 12345_Rahul/
+│   ├── img1.jpg
+│   ├── img2.jpg
+│   └── ...
+├── 67890_Akash/
+│   ├── img1.jpg
+│   └── ...
+```
 
-3. 👤 **Add Face Images for Each Person**  
-   Inside `attendencesystem/`, create one folder per person.  
-   Each folder should have **multiple clear face images** of that person.  
-   Example:
-   ```
-   attendencesystem/Akash/
-   attendencesystem/Sneha/
-   ```
+## 📁 Files Generated
 
----
+- `model.pkl`: Trained SVM model and LabelEncoder
+- `attendence.csv`: Attendance log file
+- `main.py`: Main recognition script
 
-## ▶️ How to Use It
+## 🧪 How It Works
 
-> **Main File to Run the System:**  
-> ✅ `main.py` is the main program you need to run.  
+1. Load training dataset with 6+ augmentations
+2. Extract embeddings using FaceNet
+3. Train SVM with best configuration
+4. Use webcam to recognize faces in real-time
+5. If person is stable for 3 seconds, mark attendance
+6. Save timestamped entry in `attendence.csv`
 
-| Task | Command |
-|------|---------|
-| ✅ **Start Face Recognition System** | `python main.py` |
-| 🧪 Validate Model Accuracy | `python validate_model.py` |
-| 📄 View Attendance Records | `python utils.py view` |
-| 🧹 Clear Attendance Records | `python utils.py clear` |
+## ▶️ How to Run
 
----
+```bash
+pip install -r requirements.txt
+python main.py
+```
 
-## 🎮 In-Program Controls
+## ✍️ Attendance Log Example
 
-- Press `q` → Quit the program  
-- Press `r` → Retrain the model using current dataset  
+```
+Name,Timestamp
+12345_Rahul,2025-08-08 10:32:11
+67890_Akash,2025-08-08 10:35:07
+```
 
----
+## 📌 Notes
 
-## 📈 Model Behavior
+- Ensure the dataset folder structure follows the format above.
+- Press `q` to quit the webcam window.
+- Model will auto-train if `model.pkl` is missing.
 
-The system will:
-- Warn you if it detects **overfitting** (great results in training, poor in testing)
-- Warn about **underfitting** (low accuracy on test data)
-- Pick the **best model settings**
-- Save model performance details automatically
+## 👨‍💻 Author
 
----
-
-## ⚙️ Configuration File Explained (`config.json`)
-
-You can control some settings using the config file:
-
-| Setting | What It Means |
-|---------|----------------|
-| `confidence_threshold` | How confident the system should be (0.0–1.0) to mark someone present |
-| `dataset_path` | Location of your image folders |
-| `model_file` | Filename where the trained model is saved |
-| `attendance_file` | CSV file where attendance will be recorded |
-| `min_face_size` | Minimum size of face (in pixels) to detect |
-
----
+P. Rahul Reddy  
+[GitHub](https://github.com/PRAHULREDD) | [LinkedIn](https://www.linkedin.com/in/rahul-reddy-7bb9a9324/)
